@@ -1,0 +1,208 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    margin-top: 50px; 
+  }
+  
+  .search-container {
+  text-align: center;
+  margin-top: -500px;
+}
+
+.search-field {
+    margin-bottom: 10px;
+    margin-top: 40px;
+  }
+  
+  .search-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .search-field input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .blue-button {
+    background-color: blue;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .blue-button:hover {
+    background-color: darkblue;
+  }
+
+.button-container {
+  margin-top: 10px;
+}
+
+.blue-button {
+  background-color: blue;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.custom-button {
+    font-size: 18px; 
+    padding: 12px 24px; 
+    border-radius: 8px; 
+    width: 300px;
+  }
+
+#inputBusqueda{
+    width: 400px;
+}
+  
+  .custom-button:hover {
+    background-color: darkblue;
+  }
+
+.blue-button:hover {
+  background-color: darkblue;
+}
+
+  
+  /* Estilos para el input y el botón */
+  input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    -moz-appearance: textfield;
+  }
+
+  
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+  
+  button {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+  .result-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  .logo-container {
+    position: relative;
+  }
+  
+  .logo-left {
+    order: 1;
+    margin-right: auto;
+  }
+  
+  .logo-right {
+    order: 2;
+    margin-left: 1400px;
+  }
+
+  .search-field {
+    position: relative; 
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 350px; 
+    top: 70%; 
+    transform: translateY(-50%);
+  }
+
+  .result-data {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    color: #000000; 
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+
+  .result-flex {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .result-label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .result-value {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    color: #000000;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+    flex: 1;
+    font-size: 20px;
+  }
+
+  .result-column {
+    width: 38%; 
+  }
+
+
+  .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .logo-container img {
+    width: 300px;
+  }
+
+  img{
+    height: 100px;
+    width: 200px;
+  }
+
+
+  .form-list {
+    list-style: none; /* Elimina los puntos de lista */
+    padding: 0; /* Elimina el relleno por defecto de la lista */
+  }
+  
+  .form-item {
+    margin-bottom: 16px; /* Agrega un espacio entre los elementos de la lista */
+  }
+  
+  .custom-input {
+    width: 100%; /* Ancho personalizado del 100% (ancho completo) */
+  }
+  

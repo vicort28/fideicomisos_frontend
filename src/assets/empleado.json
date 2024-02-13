@@ -1,0 +1,4 @@
+[
+  { "id": 1, "nombre": "Victor", "edad": 28, "email": "victor.ortiz@example.com", "n_empleado":17654, "apellido_paterno": "Ortiz", "apellido_materno": "Martinez", "telefono":6142779854, "domicilio": "Egipto 27","unidad":"SWAT", "antiguedad": 4, "rfc": "OIMV0828952N8", "curp": "OIMV082895CC01" },
+  { "id": 2, "nombre": "David", "edad": 25, "email": "david_m@example.com", "n_empleado":21395, "apellido_paterno": "Martínez", "apellido_materno": "Talamantes", "telefono":61427797698, "domicilio": "Cairo 27","unidad":"K9", "antiguedad": 9, "rfc": "DIMV0828952N9", "curp": "DIMV082895CC11"  }
+]

@@ -1,0 +1,121 @@
+<div class="header">
+  <div class="logo-container logo-right" style="margin-bottom: 60px ; margin-left: 1600px;">
+    <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
+  </div>
+</div>
+
+<div class="container">
+    <div class="busqueda-empleados">
+      <mat-form-field class="filtro">
+        <mat-label>Filtrar por Nombre</mat-label>
+        <input matInput (input)="aplicarFiltro($event, 'nombre')" placeholder="Escribe para filtrar" />
+      </mat-form-field>
+    </div>
+  
+    
+    <div class="empleados-lista">
+      <h2>Lista de Empleados con Registros</h2>
+      <mat-table [dataSource]="empleadosDataSource" class="mat-elevation-z8">
+       
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+          <mat-cell *matCellDef="let empleado">{{ empleado.nombre }}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="apellido_paterno">
+          <mat-header-cell *matHeaderCellDef>Apellido Paterno</mat-header-cell>
+          <mat-cell *matCellDef="let empleado">{{ empleado.apellido_paterno }}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="apellido_materno">
+          <mat-header-cell *matHeaderCellDef>Apellido Materno</mat-header-cell>
+          <mat-cell *matCellDef="let empleado">{{ empleado.apellido_materno }}</mat-cell>
+        </ng-container>
+  
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsEmpleado"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsEmpleado" (click)="seleccionarEmpleado(row)"></mat-row>
+      </mat-table>
+    </div>
+  
+   
+    <div class="registros-empleado" *ngIf="empleadoSeleccionado">
+      <h3>Registros de {{ empleadoSeleccionado.nombre }} {{ empleadoSeleccionado.apellido }}</h3>
+  
+
+      <div *ngIf="empleadoSeleccionado.prestamos && empleadoSeleccionado.prestamos.length > 0">
+        <h4>Registros de Préstamo</h4>
+        <mat-table [dataSource]="prestamosDataSource" class="mat-elevation-z8">
+          
+          <ng-container matColumnDef="cantidad1">
+            <mat-header-cell *matHeaderCellDef>Cantidad 1</mat-header-cell>
+            <mat-cell *matCellDef="let prestamo">{{ prestamo.cantidad1 }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="cantidad2">
+            <mat-header-cell *matHeaderCellDef>Cantidad 2</mat-header-cell>
+            <mat-cell *matCellDef="let prestamo">{{ prestamo.cantidad2 }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="quincenas">
+            <mat-header-cell *matHeaderCellDef>Quincenas</mat-header-cell>
+            <mat-cell *matCellDef="let prestamo">{{ prestamo.quincenas }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let prestamo">
+              <button mat-icon-button color="warn" (click)="eliminarRegistro(prestamo.id, 'prestamo')">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+  
+      
+      <div *ngIf="empleadoSeleccionado.segurosVida && empleadoSeleccionado.segurosVida.length > 0">
+        <h4>Registros de Seguro de Vida</h4>
+        <mat-table [dataSource]="segurosVidaDataSource" class="mat-elevation-z8">
+          
+          <ng-container matColumnDef="fecha_fallecimiento">
+            <mat-header-cell *matHeaderCellDef>Fecha Fallecimiento</mat-header-cell>
+            <mat-cell *matCellDef="let seguroVida">{{ seguroVida.fecha_fallecimiento }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="domicilio">
+            <mat-header-cell *matHeaderCellDef>Domicilio</mat-header-cell>
+            <mat-cell *matCellDef="let seguroVida">{{ seguroVida.domicilio }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="telefono">
+            <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+            <mat-cell *matCellDef="let seguroVida">{{ seguroVida.telefono }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="beneficiario">
+            <mat-header-cell *matHeaderCellDef>Beneficiario</mat-header-cell>
+            <mat-cell *matCellDef="let seguroVida">{{ seguroVida.beneficiario }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let seguroVida">
+              <button mat-icon-button color="warn" (click)="eliminarRegistro(seguroVida.id, 'seguroVida')">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumnsSegurosVida"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsSegurosVida"></mat-row>
+        </mat-table>
+      </div>
+  
+      <button mat-raised-button color="primary" (click)="deseleccionarEmpleado()" style="margin-top: 20px;">Volver a la lista</button>
+    </div>
+  </div>
+  

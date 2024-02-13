@@ -1,0 +1,46 @@
+.sidebar {
+    background-color: #ffffff; /* Color de fondo de la barra lateral */
+    color: #0855cf; /* Color del texto */
+    width: 250px; /* Ancho de la barra lateral */
+    height: 100%; /* Altura completa de la barra lateral */
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazamiento si el contenido es largo */
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    img {
+      width: 2000px;
+      height: 65px;
+      margin-right: 10px;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+  }
+  
+  .menu {
+    list-style: none;
+    padding: 5;
+    li {
+      margin-bottom: 35px;
+      a {
+        text-decoration: none;
+        color: #0855cf;
+        font-size: 18px;
+        margin-top: 50px;
+        &:hover {
+          text-decoration: underline;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  

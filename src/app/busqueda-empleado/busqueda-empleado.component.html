@@ -1,0 +1,122 @@
+<div class="header">
+  <div class="logo-container logo-right">
+    <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
+  </div>
+</div>
+
+<div class="search-container">
+  <div style="height: 450px;"></div>
+  <h2 style="color: white;">Buscar Empleado</h2>
+  <div class="search-field">
+    <label for="inputBusqueda" style="color: white;">Nombre de Empleado:</label>
+    <div class="input-container">
+      <input type="text" id="inputBusqueda" [(ngModel)]="terminoBusqueda">
+      <i class="fas fa-search search-icon"></i>
+      <button class="btn btn-primary" >Buscar</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="empleados.length > 0" class="result-box">
+    <h3>Información del Empleado</h3>
+    <div class="result-flex">
+      <p class="result-label">Número de empleado:</p>
+      <div class="result-value">{{ empleados[0].n_empleado }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">Nombre:</p>
+      <div class="result-value">{{ empleados[0].nombre }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">Apellido Paterno:</p>
+      <div class="result-value">{{ empleados[0].apellido_paterno }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">Apellido Materno:</p>
+      <div class="result-value">{{ empleados[0].apellido_materno }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">Domicilio:</p>
+      <div class="result-value">{{ empleados[0].domicilio }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">Unidad:</p>
+      <div class="result-value">{{ empleados[0].unidad }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">RFC:</p>
+      <div class="result-value">{{ empleados[0].rfc }}</div>
+    </div>
+    <div class="result-flex">
+      <p class="result-label">CURP:</p>
+      <div class="result-value">{{ empleados[0].curp }}</div>
+    </div> 
+    <div class="result-flex">
+      <p class="result-label">Telefono:</p>
+      <div class="result-value">{{ empleados[0].telefono }}</div>
+    </div>
+    
+  </div>
+
+  <div class="add-employee-box">
+    <h3>Agregar Empleado</h3>
+    <form (ngSubmit)="agregarEmpleado()">
+      <ul class="form-list">
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Nombre" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Numero de empleado" [(ngModel)]="nuevoEmpleado.n_empleado" name="nEmpleado" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Apellido Paterno" [(ngModel)]="nuevoEmpleado.apellido_paterno" name="apellidoPaterno" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Apellido Materno" [(ngModel)]="nuevoEmpleado.apellido_materno" name="apellidoMaterno" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Teléfono" [(ngModel)]="nuevoEmpleado.telefono" name="telefono" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Correo" [(ngModel)]="nuevoEmpleado.correo" name="correo" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Domicilio" [(ngModel)]="nuevoEmpleado.domicilio" name="domicilio" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Unidad" [(ngModel)]="nuevoEmpleado.unidad" name="unidad" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="Antigüedad" [(ngModel)]="nuevoEmpleado.antiguedad" name="antiguedad" required>
+          </mat-form-field>
+        </li>
+        <li class="form-item">
+          <mat-form-field class="custom-input">
+            <input matInput placeholder="RFC" [(ngModel)]="nuevoEmpleado.rfc" name="rfc" required>
+          </mat-form-field>
+        </li>
+      </ul>
+      
+      <button type="submit" mat-raised-button color="primary">Agregar</button>
+    </form>
+  </div>
+  
+
+</div>

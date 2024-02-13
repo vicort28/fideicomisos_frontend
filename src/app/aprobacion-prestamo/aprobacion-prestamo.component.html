@@ -1,0 +1,45 @@
+<div class="header">
+  <div class="logo-container logo-right" style="margin-bottom: 60px; margin-left: 1600px;">
+    <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
+  </div>
+</div>
+
+
+<div class="container">
+  <h2>Detalles del Préstamo Aprobado</h2>
+
+  <div class="prestamo-aprobado-info">
+    <h3>Registros de Préstamo Aprobado</h3>
+    <mat-table [dataSource]="prestamoAprobadoDataSource" class="mat-elevation-z8">
+  
+      <ng-container matColumnDef="nombre_empleado">
+        <mat-header-cell *matHeaderCellDef>Nombre del Empleado</mat-header-cell>
+        <mat-cell *matCellDef="let prestamo">{{ prestamo.nombre_empleado }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido_paterno_empleado">
+        <mat-header-cell *matHeaderCellDef>Apellido Paterno</mat-header-cell>
+        <mat-cell *matCellDef="let prestamo">{{ prestamo.apellido_paterno_empleado }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido_materno_empleado">
+        <mat-header-cell *matHeaderCellDef>Apellido Materno</mat-header-cell>
+        <mat-cell *matCellDef="let prestamo">{{ prestamo.apellido_materno_empleado }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+        <mat-cell *matCellDef="let prestamo">{{ prestamo.cantidad }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quincenas">
+        <mat-header-cell *matHeaderCellDef>Quincenas</mat-header-cell>
+        <mat-cell *matCellDef="let prestamo">{{ prestamo.quincenas }}</mat-cell>
+      </ng-container>
+
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+</div>
