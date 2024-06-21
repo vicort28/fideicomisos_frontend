@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Historial de Préstamos</h2>
+<mat-dialog-content>
+  <div *ngIf="cargando">Cargando...</div>
+  <div *ngIf="!cargando && prestamos.length > 0; else noData">
+    <ul>
+      <li *ngFor="let prestamo of prestamos">
+        Cantidad: {{ prestamo.cantidad }}, Quincenas: {{ prestamo.quincenas }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #noData>
+    <p>No hay préstamos disponibles para este empleado.</p>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>

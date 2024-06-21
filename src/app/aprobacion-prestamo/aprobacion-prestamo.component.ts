@@ -18,12 +18,13 @@ export class AprobacionPrestamoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.obterenerRegistrosAporbados();
+    this.obtenerRegistrosAprobados();
   }
 
-  obterenerRegistrosAporbados() {
-    this.empleadoService.obterenerRegistrosAporbados().subscribe(
+  obtenerRegistrosAprobados() {
+    this.empleadoService.obtenerRegistrosAprobados().subscribe(
       data => {
+        console.log('Datos obtenidos:', data); // Agrega esto para verificar los datos obtenidos
         this.prestamoAprobadoDataSource.data = data;
       },
       error => {
@@ -31,6 +32,7 @@ export class AprobacionPrestamoComponent implements OnInit {
       }
     );
   }
+  
 
   aprobarPrestamo(prestamo: any) {
     console.log('Préstamo aprobado:', prestamo);

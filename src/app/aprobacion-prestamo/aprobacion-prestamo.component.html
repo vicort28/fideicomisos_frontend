@@ -1,9 +1,9 @@
+<app-navegacion></app-navegacion>
 <div class="header">
   <div class="logo-container logo-right" style="margin-bottom: 60px; margin-left: 1600px;">
     <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
   </div>
 </div>
-
 
 <div class="container">
   <h2>Detalles del Préstamo Aprobado</h2>
@@ -36,7 +36,6 @@
         <mat-header-cell *matHeaderCellDef>Quincenas</mat-header-cell>
         <mat-cell *matCellDef="let prestamo">{{ prestamo.quincenas }}</mat-cell>
       </ng-container>
-
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>

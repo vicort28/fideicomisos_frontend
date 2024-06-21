@@ -1,3 +1,4 @@
+<app-navegacion></app-navegacion>
 <div class="header">
   <div class="logo-container logo-right" style="margin-bottom: 60px ; margin-left: 1600px;">
     <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
@@ -12,9 +13,9 @@
     </mat-form-field>
   </div>
 
-  <div class="empleados-lista">
+  <div class="empleados-lista" [class.hand-cursor]="true">
     <h2>Lista de Empleados</h2>
-    <mat-table [dataSource]="empleadosDataSource" class="mat-elevation-z8">
+    <mat-table [dataSource]="empleadosDataSource" class="mat-elevation-z8" >
       <ng-container matColumnDef="nombre">
         <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
         <mat-cell *matCellDef="let empleado">{{ empleado.nombre }}</mat-cell>
@@ -30,12 +31,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumnsEmpleado"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumnsEmpleado" (click)="seleccionarEmpleado(row)"></mat-row>
     </mat-table>
-  </div>
+  </div >
 
-  <div class="registros-empleado" *ngIf="empleadoSeleccionado" style="margin-top: 40px;">
-    <h3>Registros de {{ empleadoSeleccionado.nombre }} {{ empleadoSeleccionado.apellido_paterno }} {{ empleadoSeleccionado.apellido_materno }}</h3>
 
-  
-    <button mat-raised-button color="primary" (click)="abrirModal(empleadoSeleccionado)">Ver Detalles</button>
   </div>
-</div>

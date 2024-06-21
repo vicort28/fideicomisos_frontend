@@ -15,12 +15,19 @@
   
 
     <div *ngIf="data.empleado.prestamos && data.empleado.prestamos.length > 0">
-        <h3>Préstamos</h3>
-        <div class="detalles-container">
-          <div class="detalle-item" *ngFor="let prestamo of data.empleado.prestamos">
-           <div><strong>Cantidad:</strong> {{ prestamo.cantidad }}</div> 
-           <div><strong>Quincenas:</strong> {{ prestamo.quincenas }}</div>
-           <button mat-raised-button color="primary" (click)="aprobarPrestamo(prestamo)">Aprobar Préstamo</button>
+        <div *ngIf="data.empleado.prestamos && data.empleado.prestamos.length > 0">
+          <h3>Préstamos</h3>
+          <div class="detalles-container">
+            <div class="detalle-item" *ngFor="let prestamo of data.empleado.prestamos">
+              <div><strong>Cantidad:</strong> {{ prestamo.cantidad }}</div> 
+              <div><strong>Quincenas:</strong> {{ prestamo.quincenas }}</div>
+              <button  mat-raised-button color="primary" style="margin-right: 10px; margin-top: 10px;" (click)="aprobarPrestamo(empleado.id)">
+                Aprobar Préstamo
+              </button>
+              <button mat-raised-button color="warn" style="margin-top: 10px;" (click)="openActualizarModal(prestamo)">
+                Actualizar Préstamo
+              </button>
+            </div>
           </div>
         </div>
         <div *ngIf="!data.empleado.prestamos || data.empleado.prestamos.length === 0">Aún no tiene registros de préstamos.</div>
@@ -41,13 +48,54 @@
       <div *ngIf="!data.empleado.seguros_vida || data.empleado.seguros_vida.length === 0">Aún no tiene registros de seguros de vida.</div>
       
     </div>
+
+    <div *ngIf="data.empleado.gastos_funerarios && data.empleado.gastos_funerarios.length > 0">
+      <div *ngFor="let gastosFunerarios of  data.empleado.gastos_funerarios">
+        <div *ngIf="gastosFunerarios.padre">
+          <strong>Parentesco:</strong> Padre
+        </div>
+        <div *ngIf="gastosFunerarios.madre">
+          <strong>Parentesco:</strong> Madre
+        </div>
+        <div *ngIf="gastosFunerarios.hijo">
+          <strong>Parentesco:</strong> Hijo
+        </div>
+        <div *ngIf="gastosFunerarios.esposo">
+          <strong>Parentesco:</strong> Esposo
+        </div>
+      </div>
+      <div *ngIf="!gastos_funerarios || gastos_funerarios.length === 0">Aún no tiene registros de gastos funerarios.</div>
+    </div>
+    
+
+    
+
+  <div style="margin-bottom: 20px;"></div>
+
+
+  <h3>Gastos funerarios</h3>
+  <h4><strong> Parentescos</strong></h4>
+  
+  <div *ngIf="gastos_funerarios[0].padre">
+     Padre
+  </div>
+  <div *ngIf="gastos_funerarios[0].hijo">
+     Hijo
+  </div>
+  <div *ngIf="gastos_funerarios[0].esposo">
+    Espos@
+  </div>
+  <div *ngIf="gastos_funerarios[0].madre">
+     Madre
+  </div>
+
+
     <div style="margin-bottom: 20px;"></div>
   
     <div class="acciones">
-      <button style="margin: 15px;" mat-raised-button color="warn" (click)="cerrarModal()">Cerrar</button>
-      <button style="margin: 15px;"  mat-raised-button color="accent" (click)="generarPDFSeguroVida()">Generar PDF Seguro de Vida</button>
-      <button style="margin: 15px;"  mat-raised-button color="accent" (click)="generarPDFPrestamos()">Generar PDF Préstamos</button>
-      
+      <button style="margin: 15px; margin-left: 1px;"  mat-raised-button color="accent" *ngIf="data.empleado.prestamos && data.empleado.prestamos.length > 0" (click)="generarPDFPrestamos()">Generar PDF Préstamos</button>
+      <button style="margin: 15px;"  mat-raised-button color="accent" *ngIf="data.empleado.seguros_vida && data.empleado.seguros_vida.length > 0" (click)="generarPDFSeguroVida()">Generar PDF Seguro de Vida</button>
     </div>
+    
   </mat-dialog-content>
   

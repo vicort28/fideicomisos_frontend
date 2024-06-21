@@ -1,0 +1,29 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  
+  .form-wrapper {
+    max-width: 400px;
+    width: 100%; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 300px;
+  }
+
+  .logo-right {
+    order: 2;
+    margin-left: 1400px;
+  }
+  
+  

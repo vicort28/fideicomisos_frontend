@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Actualizar Préstamo</h2>
+<mat-dialog-content>
+  <form [formGroup]="updateForm" (ngSubmit)="actualizarPrestamo()">
+    <mat-form-field>
+      <mat-label>Cantidad</mat-label>
+      <mat-select formControlName="cantidad">
+        <mat-option *ngFor="let option of cantidades" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Quincenas</mat-label>
+      <mat-select formControlName="quincenas">
+        <mat-option *ngFor="let option of quincenas" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button type="button" (click)="close()">Cancelar</button>
+      <button mat-button color="primary" type="submit">Actualizar</button>
+    </div>
+  </form>
+</mat-dialog-content>

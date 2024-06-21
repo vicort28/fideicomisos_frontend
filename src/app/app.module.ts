@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { EliminarRegistrosComponent } from './eliminar-registros/eliminar-registros.component';
-import { TramiteComponent } from './tramite/tramite.component';
+import { TramiteComponent} from './tramite/tramite.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -34,13 +34,23 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ListaRegistrosComponent } from './lista-registros/lista-registros.component';
 import { AprobacionPrestamoComponent } from './aprobacion-prestamo/aprobacion-prestamo.component';
 import { ModalComponent } from './modal-component/modal-component.component';
+import { LoginComponent } from './login/login.component';
+import { ModalAprobarPrestamoComponent } from './modal-aprobar-prestamo/modal-aprobar-prestamo.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PrestamosmodalComponent } from './prestamosmodal/prestamosmodal.component';
+import { ActualizarDatosComponent } from './actualizar-datos/actualizar-datos.component';
+import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-modal.component';
+import { BuscarEmpleadoComponent } from './buscar-empleado/buscar-empleado.component';
+import { EmpleadoApiService } from './empleado-api.service';
 
 
 
 @NgModule({
-  declarations: [AppComponent,EliminarRegistrosComponent, BusquedaEmpleadoComponent, TablaEmpleadoComponent, TramiteComponent, NavegacionComponent, ListaRegistrosComponent, AprobacionPrestamoComponent, ModalComponent], 
-  imports: [MatListModule,MatDialogModule, MatNativeDateModule, MatDatepickerModule, MatIconModule, MatCheckboxModule, MatSelectModule,ReactiveFormsModule,ButtonModule, MatPaginatorModule,TableModule, NgxDatatableModule,MatInputModule, MatAutocompleteModule, MatFormFieldModule,MatTabsModule,AppRoutingModule,RouterModule,MatTableModule, MatButtonModule,BrowserAnimationsModule,BrowserModule, FormsModule, HttpClientModule,BrowserAnimationsModule],
-  providers: [EmpleadoService],
+  declarations: [AppComponent, ConfirmacionModalComponent, BuscarEmpleadoComponent, ActualizarDatosComponent, PrestamosmodalComponent, ModalAprobarPrestamoComponent,EliminarRegistrosComponent,LoginComponent, BusquedaEmpleadoComponent, TablaEmpleadoComponent, TramiteComponent, NavegacionComponent, ListaRegistrosComponent, AprobacionPrestamoComponent, ModalComponent], 
+  imports: [ MatSnackBarModule,MatCardModule,MatListModule,MatDialogModule, MatNativeDateModule, MatDatepickerModule, MatIconModule, MatCheckboxModule, MatSelectModule,ReactiveFormsModule,ButtonModule, MatPaginatorModule,TableModule, NgxDatatableModule,MatInputModule, MatAutocompleteModule, MatFormFieldModule,MatTabsModule,AppRoutingModule,RouterModule,MatTableModule, MatButtonModule,BrowserAnimationsModule,BrowserModule, FormsModule, HttpClientModule,BrowserAnimationsModule],
+  providers: [EmpleadoService, EmpleadoApiService],
   bootstrap: [AppComponent],
+  entryComponents: [PrestamosmodalComponent, ActualizarDatosComponent, ConfirmacionModalComponent]
 })
 export class AppModule {}

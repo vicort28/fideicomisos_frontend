@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { EmpleadoService } from '../empleado.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -14,11 +14,13 @@ import { ModalComponent } from '../modal-component/modal-component.component';
 })
 export class ListaRegistrosComponent implements OnInit {
   @Output() prestamoAprobado = new EventEmitter<any>();
+  @ViewChild(ModalComponent) modalComponent!: ModalComponent;
   empleados: any[] = [];
   empleadosConRegistros: any[] = [];
   empleadoSeleccionado: any;
   prestamosDataSource = new MatTableDataSource<any>();
   segurosVidaDataSource = new MatTableDataSource<any>();
+  gastosFunerariosDataSource = new MatTableDataSource<any>();
   empleadosDataSource = new MatTableDataSource<any>();
   estatusColor: string = 'black';
   
@@ -32,6 +34,7 @@ export class ListaRegistrosComponent implements OnInit {
     this.prestamosDataSource = new MatTableDataSource<any>();
     this.segurosVidaDataSource = new MatTableDataSource<any>();
     this.empleadosDataSource = new MatTableDataSource<any>();
+    this.gastosFunerariosDataSource = new MatTableDataSource<any>();
   }
 
   ngOnInit() {
@@ -70,12 +73,14 @@ export class ListaRegistrosComponent implements OnInit {
   seleccionarEmpleado(empleado: any) {
     forkJoin([
       this.empleadoService.getSegurosVida(empleado.id),
-      this.empleadoService.getPrestamos(empleado.id)
+      this.empleadoService.getPrestamos(empleado.id),
+      this.empleadoService.getGastosFunerarios(empleado.id)
     ]).subscribe(
-      ([segurosVida, prestamos]) => {
+      ([segurosVida, prestamos, gastosFunerarios]) => {
         const dialogRef = this.dialog.open(ModalComponent, {
           width: '800px',
-          data: { empleado, segurosVida, prestamos }
+          height: '630px',
+          data: { empleado, segurosVida, prestamos, gastosFunerarios }
         });
   
         dialogRef.afterClosed().subscribe(result => {
@@ -98,11 +103,6 @@ export class ListaRegistrosComponent implements OnInit {
     );
   }
   
-  
-  
-  
-  
-  
 
   cerrarModal(): void {
     
@@ -114,6 +114,7 @@ export class ListaRegistrosComponent implements OnInit {
       data: {
         prestamosDataSource: this.prestamosDataSource,
         segurosVidaDataSource: this.segurosVidaDataSource,
+        gastosFunerariosDataSource: this.gastosFunerariosDataSource,
       }
     });
   
@@ -123,9 +124,6 @@ export class ListaRegistrosComponent implements OnInit {
   }
   
   
-
-  
-
   deseleccionarEmpleado() {
     this.empleadoSeleccionado = null;
   }
@@ -143,20 +141,7 @@ export class ListaRegistrosComponent implements OnInit {
     this.empleadosDataSource.filter = filtro;
   }
 
-  autorizarPrestamo(prestamo: any) {
-    const empleadoId = this.empleadoSeleccionado.id;
+
   
-    prestamo.estatus = 'aprobado';
-    this.estatusColor = 'green';
   
-    this.empleadoService.aprobarPrestamo(prestamo.id).subscribe(
-      (response) => {
-        prestamo.estatus = 'aceptado';
-        this.router.navigate(['/aprobacion-prestamo']);
-      },
-      (error) => {
-        console.error('Error al aprobar el préstamo:', error);
-      }
-    );
-  }
 }

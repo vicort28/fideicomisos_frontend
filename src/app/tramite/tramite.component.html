@@ -1,3 +1,4 @@
+<app-navegacion></app-navegacion>
 <img src="./assets/img/logo_centinela.png" alt="Logo Centinela">
 
 <div class="container">
@@ -17,15 +18,10 @@
         <mat-select formControlName="cantidad">
           <mat-option *ngFor="let opcion of opcionesCantidad" [value]="opcion">{{ opcion }}</mat-option>
         </mat-select>
-      </mat-form-field>
-
-      <div class="form-row-content"> 
-        <mat-form-field class="form-field">
-          <mat-label>Pago por Quincena</mat-label>
-          <input matInput formControlName="pagoporquincena" [readonly]="true">
-        </mat-form-field>
-      </div>
+    </mat-form-field>
     </div>
+
+
     <div class="form-row">
       <mat-form-field class="form-field">
         <mat-label>Quincenas</mat-label>
@@ -35,65 +31,74 @@
       </mat-form-field>
     </div>
 
-    <div class="form-row">
-      <div class="form-row-content">
-        <mat-form-field class="form-field">
-          <mat-label>Estatus</mat-label>
-          <input matInput formControlName="estatus" [readonly]="true">
-        </mat-form-field>
-      </div>   
-    </div>
+
+  
 
     <button mat-raised-button color="accent" (click)="guardarFormulario1()">Guardar</button>
+    <button style="margin-top: 20px;" mat-raised-button color="primary" (click)="openModal()">Ver Historial de Préstamos</button>
+    
+
   </form>
 </mat-tab>
 
       
 
+<mat-tab label="Gastos Funerarios">
+  <form [formGroup]="formulario2" (ngSubmit)="guardarGastosFunerarios()">
+      <div>
+        <mat-checkbox formControlName="madre">Madre</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox formControlName="padre">Padre</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox formControlName="esposo">Esposo</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox formControlName="hijo">Hijo</mat-checkbox>
+      </div>
+    <button mat-raised-button color="accent" type="submit">Guardar</button>
+  </form>
+</mat-tab>
 
-      <mat-tab label="Gastos Funerarios">
-        <form class="form" [formGroup]="formulario2">
-          <div class="form-row">
-            <input type="hidden" formControlName="empleado_id">
-            <mat-form-field class="form-field">
-              <mat-label>Parentesco</mat-label>
-              <mat-select formControlName="parentesco">
-                <mat-option *ngFor="let opcion of opcionesParentesco" [value]="opcion">{{ opcion }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          
-          <button mat-raised-button color="accent" (click)="guardarFormulario2()">Guardar</button>
-        </form>
-      </mat-tab>
 
-     
+
+
+
       <mat-tab label="Seguro de Vida">
         <form class="form" [formGroup]="formulario3">
           <div class="form-row">
             <mat-form-field class="form-field">
               <input type="hidden" formControlName="empleado_id">
-              <input matInput placeholder="Fecha de fallecimiento" formControlName="fecha_fallecimiento" [matDatepicker]="picker">
+              <input matInput placeholder="Fecha de fallecimiento" formControlName="fecha_fallecimiento" [matDatepicker]="picker" readonly>
+  
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+              
             </mat-form-field>
           </div>
           <div class="form-row">
             <mat-form-field class="form-field">
               <input matInput placeholder="Domicilio" formControlName="domicilio">
+              <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('domicilio')">
+               Execede limite de caracteres
+              </mat-error>         
             </mat-form-field>
           </div>
           <div class="form-row">
             <mat-form-field class="form-field">
               <input matInput placeholder="Teléfono" formControlName="telefono">
-                <mat-error *ngIf="formulario1.get('telefono')?.hasError('pattern')">
-                  El teléfono debe tener exactamente 7 dígitos.
-                </mat-error>
+              <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('telefono')">
+                Datos no validos
+               </mat-error> 
             </mat-form-field>
           </div>
           <div class="form-row">
             <mat-form-field class="form-field">
               <input matInput placeholder="Beneficiario" formControlName="beneficiario">
+              <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('beneficiario')">
+                Execede limite de caracteres
+               </mat-error> 
             </mat-form-field>
           </div>
       

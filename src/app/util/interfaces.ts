@@ -55,6 +55,7 @@ export interface Data {
     nombre: string;
     cantidad: string;
     quincenas: number;
+    aprobado: boolean;
   }
 
 
@@ -69,6 +70,10 @@ export interface Data {
 
   export interface GastosFunerarios {
     id: number;
-    parentesco: string;
+    padre: boolean;
+    madre: boolean;
+    hijo: boolean;
+    esposo: boolean;
   }
+  
   

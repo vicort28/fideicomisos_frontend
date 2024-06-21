@@ -6,16 +6,20 @@ import { TramiteComponent } from './tramite/tramite.component';
 import { EliminarRegistrosComponent } from './eliminar-registros/eliminar-registros.component';
 import { ListaRegistrosComponent } from './lista-registros/lista-registros.component';
 import { AprobacionPrestamoComponent } from './aprobacion-prestamo/aprobacion-prestamo.component';
+import { LoginComponent } from './login/login.component';
+import { BuscarEmpleadoComponent } from './buscar-empleado/buscar-empleado.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/busqueda-empleado', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'busqueda-empleado', component: BusquedaEmpleadoComponent },
   { path: 'tabla-empleado', component: TablaEmpleadoComponent },
+  { path: 'buscar-empleado', component:BuscarEmpleadoComponent },
   { path: 'tramite/:id', component: TramiteComponent },
   { path: 'aprobacion-prestamo', component: AprobacionPrestamoComponent },
   { path: 'datos-empleado/<int:empleado_id>/',component: TramiteComponent},
   { path: 'lista-registros', component:ListaRegistrosComponent},
   { path: 'eliminar-registros', component: EliminarRegistrosComponent },
+  { path: 'login', component:LoginComponent}
 ];
 
 @NgModule({

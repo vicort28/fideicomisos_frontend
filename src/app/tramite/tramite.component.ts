@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EmpleadoService } from '../empleado.service';
 import { EmpleadoSharedService } from '../empleado-shared.service';
 import { HttpClient } from '@angular/common/http';
 import { Empleado } from '../util/interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { PrestamosmodalComponent } from '../prestamosmodal/prestamosmodal.component';
+
 
 @Component({
   selector: 'app-tramite',
@@ -13,8 +17,10 @@ import { Empleado } from '../util/interfaces';
 })
 export class TramiteComponent implements OnInit {
   tramiteId!: number;
+  empleado: any;
   formulario1: FormGroup;
   formulario2: FormGroup;
+  empleadoId!: number;
   formulario3: FormGroup;
   empleadoSeleccionado: any;
   empleadoSeleccionadoId!: number;
@@ -24,14 +30,21 @@ export class TramiteComponent implements OnInit {
   opcionesQuincenas = ['24', '48'];
   opcionesParentesco = ['Padre', 'Madre', 'Hijo', 'Esposo'];
   estatusColor: string | undefined;
+  prestamos: any;
+  prestamosKeys: string[] = [];
 
   constructor(
+    
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private empleadoService: EmpleadoService,
     private empleadoSharedService: EmpleadoSharedService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
+
+    
     this.formulario1 = this.formBuilder.group({
       empleado_id: [''],
       cantidad: [''],  
@@ -39,11 +52,16 @@ export class TramiteComponent implements OnInit {
       estatus: ['En proceso'],
     });
 
-    this.formulario2 = this.formBuilder.group({
-      empleado_id: [''],
-      parentesco: [''],
-    });
 
+    this.formulario2 = this.formBuilder.group({
+       empleado_id: [''],
+        padre: [false],
+        madre: [false],
+        hijo: [false],
+        esposo: [false]
+      });
+    
+    
     this.formulario3 = this.formBuilder.group({
       empleado_id: [''],
       fecha_fallecimiento: [''],
@@ -51,37 +69,41 @@ export class TramiteComponent implements OnInit {
       telefono: ['', [Validators.pattern(/^\d{7}$/)]],
       beneficiario: [''],
     });
+
+    
+  this.formulario3 = new FormGroup({
+    empleado_id: new FormControl(''),
+    fecha_fallecimiento: new FormControl('', [Validators.required]),
+    domicilio: new FormControl('', [Validators.required, Validators.maxLength(25)]), 
+    telefono: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(10)]),
+    beneficiario: new FormControl('', [Validators.required, Validators.maxLength(25)]), 
+  })
+    
   }
 
+
+
   ngOnInit() {
+    
     this.route.params.subscribe((params) => {
       this.tramiteId = +params['id'];
       this.empleadoSeleccionado = this.empleadoSharedService.getEmpleadoSeleccionado();
-
+  
       if (this.empleadoSeleccionado) {
         this.empleadoSeleccionadoId = this.empleadoSeleccionado.id;
         console.log('ID del empleado seleccionado:', this.empleadoSeleccionadoId);
-
-        const datosFormulario1Local = localStorage.getItem('datosFormulario1');
-        if (datosFormulario1Local) {
-          const datosFormulario1 = JSON.parse(datosFormulario1Local);
-          this.formulario1.patchValue({ ...datosFormulario1, empleado_id: this.empleadoSeleccionadoId });
-        }
-
-        const datosFormulario2Local = localStorage.getItem('datosFormulario2');
-        if (datosFormulario2Local) {
-          const datosFormulario2 = JSON.parse(datosFormulario2Local);
-          this.formulario2.patchValue({ ...datosFormulario2, empleado_id: this.empleadoSeleccionadoId });
-        }
-
-        const datosFormulario3Local = localStorage.getItem('datosFormulario3');
-        if (datosFormulario3Local) {
-          const datosFormulario3 = JSON.parse(datosFormulario3Local);
-          this.formulario3.patchValue({ ...datosFormulario3, empleado_id: this.empleadoSeleccionadoId });
-        }
+  
+        this.formulario1.patchValue({ empleado_id: this.empleadoSeleccionadoId });
+  
+        this.formulario2.patchValue({ empleado_id: this.empleadoSeleccionadoId });
+  
+        this.formulario3.patchValue({ empleado_id: this.empleadoSeleccionadoId });
       }
     });
+
+    this.obtenerPrestamos();
   }
+  
 
   enviarInfo(url: string, datos: any) {
     this.http.post(url, datos).subscribe(
@@ -108,21 +130,17 @@ export class TramiteComponent implements OnInit {
     }
 
     datosFormulario1.empleado_id = this.empleadoSeleccionadoId;
-
-    console.log('Opciones enviadas desde Angular:', datosFormulario1);
+    window.location.reload();
 
     this.empleadoService.guardarDatos(datosFormulario1).subscribe(
         (response) => {
-            console.log('Respuesta del servidor:', response);
 
             const pagoporquincena = parseFloat(datosFormulario1.cantidad.replace('$', '').replace(',', '')) / parseFloat(datosFormulario1.quincenas);
-            console.log('Pago por quincena:', pagoporquincena);
 
             this.formulario1.patchValue({
                 estatus: 'aprobado',
             });
 
-            localStorage.setItem('datosFormulario1', JSON.stringify(datosFormulario1));
 
             this.estatusColor = 'green';
         },
@@ -131,6 +149,17 @@ export class TramiteComponent implements OnInit {
         }
     );
 }
+obtenerPrestamos(): void {
+  this.empleadoService.getPrestamos(this.empleadoSeleccionadoId).subscribe(
+    (data: any[]) => {
+      this.prestamos = data;
+    },
+    (error: any) => {
+      console.error('Error al obtener los préstamos:', error);
+    }
+  );
+}
+
 
   guardarFormulario3() {
     const datosFormulario3 = this.formulario3.value;
@@ -138,6 +167,17 @@ export class TramiteComponent implements OnInit {
     if (!this.empleadoSeleccionadoId) {
       console.error('Falta el ID del empleado en el formulario.');
       return;
+    }
+
+    window.location.reload();
+
+    if (this.formulario3.invalid) {
+      this.snackBar.open('Por favor, completa todos los campos correctamente', 'Cerrar', {
+        duration: 3000, 
+        horizontalPosition: 'end', 
+        verticalPosition: 'top' 
+      });
+      return; 
     }
 
     datosFormulario3.empleado_id = this.empleadoSeleccionadoId;
@@ -150,36 +190,48 @@ export class TramiteComponent implements OnInit {
         console.error('Error al registrar seguro de vida:', error);
       }
     );
-    localStorage.setItem('datosFormulario3', JSON.stringify(datosFormulario3));
+   
   }
 
-  guardarFormulario2() {
+  guardarGastosFunerarios() {
     const datosFormulario2 = this.formulario2.value;
-
-    if (!this.empleadoSeleccionadoId) {
+    const empleadoId = this.empleadoSeleccionadoId;
+  
+    if (!empleadoId) {
       console.error('Falta el ID del empleado en el formulario.');
       return;
     }
 
-    datosFormulario2.empleado_id = this.empleadoSeleccionadoId;
-
+    window.location.reload();
+  
     this.empleadoService.guardarGastosFunerarios(datosFormulario2).subscribe(
       (response) => {
-        console.log('Gastos funerarios registrados correctamente:', response);
-
-        this.empleadoService.getGastosFunerarios(this.empleadoSeleccionadoId).subscribe(
-          (gastosFunerarios) => {
-            this.gastosFunerarios = gastosFunerarios;
-          },
-          (error) => {
-            console.error('Error al obtener gastos funerarios:', error);
-          }
-        );
+        console.log('Gastos funerarios guardados correctamente:', response);
       },
       (error) => {
-        console.error('Error al registrar gastos funerarios:', error);
+        console.error('Error al guardar los gastos funerarios:', error);
       }
     );
-    localStorage.setItem('datosFormulario2', JSON.stringify(datosFormulario2));
   }
-}
+
+  validacion_formulario_seguro_vida(campo: string): boolean {
+    const control = this.formulario3.get(campo);
+    return !!control && (control.hasError('maxlength') || control.hasError('pattern') || control.hasError('minlength'))  && (control.dirty || control.touched);
+  }
+  
+  
+  openModal(): void {
+    if (!this.empleadoSeleccionadoId) {
+      console.error('Falta el ID del empleado.');
+      return;
+    }
+  
+    this.dialog.open(PrestamosmodalComponent, {
+      width: '400px',
+      data: { empleadoId: this.empleadoSeleccionadoId }
+    });
+  }
+  
+  
+
+} 

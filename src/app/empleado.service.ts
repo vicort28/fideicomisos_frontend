@@ -49,20 +49,16 @@ export class EmpleadoService {
     return this.http.get<any>(url);
   }
   
-  guardarGastosFunerarios(gastosFunerarios: any): Observable<any> {
-    const url = `${this.baseUrl}gastos-funerarios/`;
-    return this.http.post<any>(url, gastosFunerarios);
-  } 
-
+  guardarGastosFunerarios(gastos: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}guardar-gastos-funerarios/`, gastos);
+  }
+  
   getEmpleadosConRegistros(): Observable<Empleado[]> {
     const url = `${this.baseUrl}empleados-con-registros/`;
     return this.http.get<Empleado[]>(url);
   }
 
-  getPrestamos(empleadoId: number): Observable<any[]> {
-    const url = `${this.baseUrl}prestamos/${empleadoId}/`;
-    return this.http.get<any[]>(url);
-  }
+
 
 
   getSegurosVida(empleadoId: number): Observable<any[]> {
@@ -77,18 +73,10 @@ export class EmpleadoService {
     return this.http.get<Prestamo>(url);
     }
 
-  obterenerRegistrosAporbados(): Observable<PresatmoAprobado[]> {
-    const url = `${this.baseUrl}aprobacion-prestamo/`;
-    return this.http.get<PresatmoAprobado[]>(url);
-  }
-    
-  
-
-  obtenerRegistrosAprobados(): Observable<PresatmoAprobado[]> {
-      const url = `${this.baseUrl}aprobacion-prestamo/`;
-      return this.http.get<PresatmoAprobado[]>(url);
+    obtenerRegistrosAprobados(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.baseUrl}prestamos/aprobados/`);
     }
-
+    
 
   obtenerDetallesSeguroVida(registroId: number): Observable<SeguroVida> {
     const url = `${this.baseUrl}seguros-vida/${registroId}/`;
@@ -130,21 +118,36 @@ export class EmpleadoService {
     return this.http.get<any>(url);
   }
 
-  obtenerRegistrosPrestamoAprobado(empleadoId: number): Observable<any[]> {
-    const url = `${this.baseUrl}empleados/${empleadoId}/aprobacion-prestamo`;
+  obtenerRegistrosPrestamoAprobado(prestamoId: number): Observable<any[]> {
+    const url = `${this.baseUrl}empleados/${prestamoId}/aprobacion-prestamo`;
     return this.http.get<any[]>(url);
   }
 
-
-  aprobarPrestamo(registroId: number): Observable<any> {
-    const url = `${this.baseUrl}empleados/${registroId}/aprobacion-prestamo/`;
-    return this.http.post(url, registroId).pipe(
-      map((response: any) => {
-        response.estatus = 'aceptado';
-        this.prestamoAprobadoSubject.next(response);
-        return response;
-      })
-    );
+  aprobarPrestamo(prestamoId: number): Observable<any> {
+    const url = `${this.baseUrl}prestamos/${prestamoId}/aprobar/`;
+    return this.http.post(url, {});
   }
+
+  aprobarPrestamoPorEmpleado(empleadoId: number): Observable<any> {
+    const url = `${this.baseUrl}prestamos/${empleadoId}/aprobar/`;
+    return this.http.post(url, {});
+  }
+
+  
+
+
+  getPrestamos(empleadoId: number): Observable<any[]> {
+    const url = `${this.baseUrl}prestamos/${empleadoId}/`;
+    return this.http.get<any[]>(url);
+  }
+
+  actualizarPrestamo(prestamoId: number, prestamoData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}prestamos/${prestamoId}/actualizar/`, prestamoData);
+  }
+  
+  
+  
+  
+
 
 }

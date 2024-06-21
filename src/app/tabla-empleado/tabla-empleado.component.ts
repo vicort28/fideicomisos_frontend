@@ -140,6 +140,12 @@ masterToggle() {
     pdf.save('BONO_DEL_DIA_DE_POLICIA.pdf');
   } 
 
+  selectAll() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  
 
 
 }

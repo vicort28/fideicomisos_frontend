@@ -1,3 +1,4 @@
+<app-navegacion></app-navegacion>
 <div class="header">
   <div class="logo-container logo-right">
     <img src="assets/img/logo_centinela.png" alt="Logo" class="logo" />
@@ -95,6 +96,12 @@
         <li class="form-item">
           <mat-form-field class="custom-input">
             <input matInput placeholder="Domicilio" [(ngModel)]="nuevoEmpleado.domicilio" name="domicilio" required>
+            <!-- <span *ngIf="validacion_formulario_asuntos_internos('domicilio', 'required')">
+              <h6 style="color: red; font-size: 12px; margin:0%;">El comentario es obligatorio</h6>
+            </span>
+            <span *ngIf="validacion_formulario_asuntos_internos('domicilio', 'email')">
+              <h6 style="color: red; font-size: 12px; margin:0%;">El cdomicilio no puede tener mas de 10 caracteres</h6>
+            </span> -->
           </mat-form-field>
         </li>
         <li class="form-item">

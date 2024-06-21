@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Buscar Empleado por Nombre Completo</h2>
+    <form [formGroup]="buscarForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput formControlName="nombreCompleto" placeholder="Ingresa el nombre completo">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Buscar</button>
+    </form>
+  
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="resultados">
+      <h3>Resultados de la Búsqueda</h3>
+      <div *ngIf="resultados.length === 0">No se encontraron empleados con ese nombre.</div>
+      <div *ngIf="resultados.length > 0">
+        <div *ngFor="let empleado of resultados">
+          <div><strong>Nombre:</strong> {{ empleado.nombres }}</div>
+          <div><strong>Apellido Paterno:</strong> {{ empleado.apellidoPaterno }}</div>
+          <div><strong>Apellido Materno:</strong> {{ empleado.apellidoMaterno }}</div>
+          <div><strong>RFC:</strong> {{ empleado.rfc }}</div>
+          <div><strong>CURP:</strong> {{ empleado.curp }}</div>
+          <div><strong>Numero de Empleado:</strong> {{ empleado.numeroEmpleado }}</div>
+          <div><strong>Telefono 1:</strong> {{ empleado.telefono1 }}</div>
+          <div><strong>Telefono 2:</strong> {{ empleado.teelefono2 }}</div>
+          <div><strong>Dirección:</strong> {{ empleado.direccion }}</div>
+          <div><strong>Dirección General:</strong> {{ empleado.direccionGeneral }}</div>
+          <div><strong>Correo:</strong> {{ empleado.correo }}</div>
+          <div><strong>Domicilio:</strong> {{ empleado.domicilio }}</div>
+          <div><strong>Fecha Ingreso:</strong> {{ empleado.fechaIngreso }}</div>
+          <div><strong>Fecha Nacimiento:</strong> {{ empleado.fechaNacimiento }}</div>
+         
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  
