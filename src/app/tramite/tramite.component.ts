@@ -32,6 +32,9 @@ export class TramiteComponent implements OnInit {
   estatusColor: string | undefined;
   prestamos: any;
   prestamosKeys: string[] = [];
+  tienePrestamo: boolean = false;
+  tieneSeguroVida: boolean = false;
+  tieneGastosFunerarios: boolean = false;
 
   constructor(
     
@@ -98,11 +101,65 @@ export class TramiteComponent implements OnInit {
         this.formulario2.patchValue({ empleado_id: this.empleadoSeleccionadoId });
   
         this.formulario3.patchValue({ empleado_id: this.empleadoSeleccionadoId });
+
+        this.verificarRegistros();
       }
     });
 
     this.obtenerPrestamos();
   }
+
+
+
+  verificarRegistros(): void {
+    this.verificarPrestamo();
+    this.verificarSeguroVida();
+    this.verificarGastosFunerarios();
+  }
+
+
+  verificarPrestamo(): void{
+    this.empleadoService.getPrestamos(this.empleadoSeleccionadoId).subscribe(
+      (data:any) =>{
+        this.tienePrestamo = !!data;
+        if (this.tienePrestamo){
+          this.formulario1.disable();
+        }
+      },
+      (error:any) => {
+        console.error('Error al obtener el prestamo', error)
+      }
+    )
+  }
+
+  verificarSeguroVida(): void {
+    this.empleadoService.getSegurosVida(this.empleadoSeleccionadoId).subscribe(
+      (data: any) => {
+        this.tieneSeguroVida = !!data;
+        if (this.tieneSeguroVida) {
+          this.formulario3.disable();
+        }
+      },
+      (error: any) => {
+        console.error('Error al obtener el seguro de vida:', error);
+      }
+    );
+  }
+
+  verificarGastosFunerarios(): void {
+    this.empleadoService.getGastosFunerarios(this.empleadoSeleccionadoId).subscribe(
+      (data: any) => {
+        this.tieneGastosFunerarios = !!data;
+        if (this.tieneGastosFunerarios) {
+          this.formulario2.disable();
+        }
+      },
+      (error: any) => {
+        console.error('Error al obtener los gastos funerarios:', error);
+      }
+    );
+  }
+
   
 
   enviarInfo(url: string, datos: any) {
@@ -117,38 +174,40 @@ export class TramiteComponent implements OnInit {
   }
 
   guardarFormulario1() {
+    if (this.formulario1.disabled) {
+      return;
+    }
+
     const datosFormulario1 = this.formulario1.value;
     console.log('Datos del formulario1:', datosFormulario1);
-
     if (!this.empleadoSeleccionadoId) {
-        console.error('Falta el ID del empleado en el formulario.');
-        return;
+      console.error('Falta el ID del empleado en el formulario.');
+      return;
     }
-
     if (!this.formulario1.get('estatus')) {
-        this.formulario1.addControl('estatus', new FormControl('por_aprobar'));
+      this.formulario1.addControl('estatus', new FormControl('por_aprobar'));
     }
-
     datosFormulario1.empleado_id = this.empleadoSeleccionadoId;
-    window.location.reload();
-
     this.empleadoService.guardarDatos(datosFormulario1).subscribe(
-        (response) => {
-
-            const pagoporquincena = parseFloat(datosFormulario1.cantidad.replace('$', '').replace(',', '')) / parseFloat(datosFormulario1.quincenas);
-
-            this.formulario1.patchValue({
-                estatus: 'aprobado',
-            });
-
-
-            this.estatusColor = 'green';
-        },
-        (error) => {
-            console.error('Error en la solicitud:', error);
-        }
+      (response) => {
+        const pagoporquincena = parseFloat(datosFormulario1.cantidad.replace('$', '').replace(',', '')) / parseFloat(datosFormulario1.quincenas);
+        this.formulario1.patchValue({ estatus: 'aprobado' });
+        this.estatusColor = 'green';
+        window.location.reload();
+        this.snackBar.open('Registro de préstamo guardado exitosamente', 'Cerrar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass:'snackbar-custom',
+        });
+      },
+      (error) => {
+        console.error('Error en la solicitud:', error);
+      }
     );
-}
+  }
+
+
 obtenerPrestamos(): void {
   this.empleadoService.getPrestamos(this.empleadoSeleccionadoId).subscribe(
     (data: any[]) => {
@@ -161,52 +220,64 @@ obtenerPrestamos(): void {
 }
 
 
-  guardarFormulario3() {
-    const datosFormulario3 = this.formulario3.value;
+guardarFormulario3() {
+  if (this.formulario3.disabled) {
+    return;
+  }
 
-    if (!this.empleadoSeleccionadoId) {
-      console.error('Falta el ID del empleado en el formulario.');
+  const datosFormulario3 = this.formulario3.value;
+  if (!this.empleadoSeleccionadoId) {
+    console.error('Falta el ID del empleado en el formulario.');
+    return;
+  }
+  if (this.formulario3.invalid) {
+    this.snackBar.open('Por favor, completa todos los campos correctamente', 'Cerrar', {
+      duration: 3000, 
+      horizontalPosition: 'end', 
+      verticalPosition: 'top',
+      panelClass: ['snackbar-custom' ]
+    });
+    return; 
+  }
+  datosFormulario3.empleado_id = this.empleadoSeleccionadoId;
+  this.empleadoService.guardarSeguroVida(datosFormulario3).subscribe(
+    (response) => {
+      console.log('Seguro de vida registrado correctamente:', response);
+      window.location.reload();
+      this.snackBar.open('Registro de seguro de vida guardado exitosamente', 'Cerrar', {
+        duration: 4000,
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
+      });
+    },
+    (error) => {
+      console.error('Error al registrar seguro de vida:', error);
+    }
+  );
+}
+
+  guardarGastosFunerarios() {
+    if (this.formulario2.disabled) {
       return;
     }
 
-    window.location.reload();
-
-    if (this.formulario3.invalid) {
-      this.snackBar.open('Por favor, completa todos los campos correctamente', 'Cerrar', {
-        duration: 3000, 
-        horizontalPosition: 'end', 
-        verticalPosition: 'top' 
-      });
-      return; 
-    }
-
-    datosFormulario3.empleado_id = this.empleadoSeleccionadoId;
-
-    this.empleadoService.guardarSeguroVida(datosFormulario3).subscribe(
-      (response) => {
-        console.log('Seguro de vida registrado correctamente:', response);
-      },
-      (error) => {
-        console.error('Error al registrar seguro de vida:', error);
-      }
-    );
-   
-  }
-
-  guardarGastosFunerarios() {
     const datosFormulario2 = this.formulario2.value;
     const empleadoId = this.empleadoSeleccionadoId;
-  
     if (!empleadoId) {
       console.error('Falta el ID del empleado en el formulario.');
       return;
     }
-
     window.location.reload();
-  
     this.empleadoService.guardarGastosFunerarios(datosFormulario2).subscribe(
       (response) => {
         console.log('Gastos funerarios guardados correctamente:', response);
+        window.location.reload();
+        this.snackBar.open('Registro de gastos funerarios guardado exitosamente', 'Cerrar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-custom']
+        });
       },
       (error) => {
         console.error('Error al guardar los gastos funerarios:', error);

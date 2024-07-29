@@ -21,7 +21,7 @@
             <div class="detalle-item" *ngFor="let prestamo of data.empleado.prestamos">
               <div><strong>Cantidad:</strong> {{ prestamo.cantidad }}</div> 
               <div><strong>Quincenas:</strong> {{ prestamo.quincenas }}</div>
-              <button  mat-raised-button color="primary" style="margin-right: 10px; margin-top: 10px;" (click)="aprobarPrestamo(empleado.id)">
+               <button *ngIf="!prestamo.aprobado" mat-raised-button color="primary" style="margin-right: 10px; margin-top: 10px;" (click)="aprobarPrestamo(empleado.id)">
                 Aprobar Préstamo
               </button>
               <button mat-raised-button color="warn" style="margin-top: 10px;" (click)="openActualizarModal(prestamo)">
@@ -43,7 +43,11 @@
           <div><strong>Domicilio:</strong> {{ seguroVida.domicilio }}</div>
           <div><strong>Teléfono:</strong> {{ seguroVida.telefono }}</div>
           <div><strong>Beneficiario:</strong> {{ seguroVida.beneficiario }}</div>
-        </div>        
+          <button mat-raised-button color="warn" style="margin-top: 10px;" (click)="openModalActualizarSeguroVida(seguroVida)">
+            Actualizar Seguro de Vida
+          </button>   
+        </div> 
+               
       </div>
       <div *ngIf="!data.empleado.seguros_vida || data.empleado.seguros_vida.length === 0">Aún no tiene registros de seguros de vida.</div>
       
@@ -51,16 +55,16 @@
 
     <div *ngIf="data.empleado.gastos_funerarios && data.empleado.gastos_funerarios.length > 0">
       <div *ngFor="let gastosFunerarios of  data.empleado.gastos_funerarios">
-        <div *ngIf="gastosFunerarios.padre">
+        <div *ngIf="gastosFunerarios[0].padre">
           <strong>Parentesco:</strong> Padre
         </div>
-        <div *ngIf="gastosFunerarios.madre">
+        <div *ngIf="gastosFunerarios[0].madre">
           <strong>Parentesco:</strong> Madre
         </div>
-        <div *ngIf="gastosFunerarios.hijo">
+        <div *ngIf="gastosFunerarios[0].hijo">
           <strong>Parentesco:</strong> Hijo
         </div>
-        <div *ngIf="gastosFunerarios.esposo">
+        <div *ngIf="gastosFunerarios[0].esposo">
           <strong>Parentesco:</strong> Esposo
         </div>
       </div>
@@ -73,21 +77,6 @@
   <div style="margin-bottom: 20px;"></div>
 
 
-  <h3>Gastos funerarios</h3>
-  <h4><strong> Parentescos</strong></h4>
-  
-  <div *ngIf="gastos_funerarios[0].padre">
-     Padre
-  </div>
-  <div *ngIf="gastos_funerarios[0].hijo">
-     Hijo
-  </div>
-  <div *ngIf="gastos_funerarios[0].esposo">
-    Espos@
-  </div>
-  <div *ngIf="gastos_funerarios[0].madre">
-     Madre
-  </div>
 
 
     <div style="margin-bottom: 20px;"></div>

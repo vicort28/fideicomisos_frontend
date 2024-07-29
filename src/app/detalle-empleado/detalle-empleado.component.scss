@@ -1,0 +1,72 @@
+.employee-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .detail-row {
+    display: flex;
+    flex: 1 1 100%;
+    gap: 16px;
+  }
+  
+  .detail-item {
+    flex: 1 1 24%; /* Ajusta este valor para el ancho deseado */
+    box-sizing: border-box;
+  }
+  
+  mat-dialog-content {
+    padding: 16px;
+  }.employee-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .detail-row {
+    display: flex;
+    flex: 1 1 100%;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .detail-item {
+    flex: 1 1 24%; /* Ajusta el ancho según sea necesario */
+    box-sizing: border-box;
+  }
+  
+  .detail-item strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .value-box {
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .value-box::empty {
+    color: #888;
+  }
+
+  .value-box-fecha{
+    
+  }
+  
+  mat-dialog-content {
+    padding: 16px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

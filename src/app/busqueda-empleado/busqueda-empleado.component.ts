@@ -32,11 +32,7 @@ export class BusquedaEmpleadoComponent {
     segurosVida: [],
     gastosFunerarios:[]
   };
-  //ejemploo
-  formulario_indicadores_asuntos_internos = new FormGroup({
-    no_quejas_observaciones_dh_recibidas:new FormControl('', [Validators.required, Validators.maxLength(100)])
-  })
-
+  
   constructor(private empleadoService: EmpleadoService) {
     this.terminoBusqueda = '';
     this.empleados = [];
@@ -44,12 +40,7 @@ export class BusquedaEmpleadoComponent {
 
 
   agregarEmpleado() {
-    // if(this.formulario_indicadores_asuntos_internos.valid){
 
-    // }else{
-    //   this.showWarn()
-    //   this.formulario_indicadores_asuntos_internos.markAllAsTouched();
-    // }
     this.empleadoService.guardarNuevoEmpleado(this.nuevoEmpleado).subscribe(
       (response) => {
         console.log('Empleado agregado correctamente:', response);
@@ -59,16 +50,5 @@ export class BusquedaEmpleadoComponent {
         console.error('Error al agregar empleado:', error);
       });
   }
-  // showWarn() {
-  //   this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'No valido' });
-  // }
-  //ejemploo
-  validacion_formulario_asuntos_internos(campo:any, tipo_validacion:any) {
-    return this.formulario_indicadores_asuntos_internos.get(`${campo}`)?.errors?.[tipo_validacion]
-      &&
-      (this.formulario_indicadores_asuntos_internos.get(`${campo}`)?.dirty
-      ||
-    this.formulario_indicadores_asuntos_internos.get(`${campo}`)?.touched
-    );
-  }
+  
 }

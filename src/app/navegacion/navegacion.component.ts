@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navegacion',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navegacion.component.scss']
 })
 export class NavegacionComponent {
+  
+  constructor(private authService:AuthService){}
+  
+  logout() {
+    this.authService.logout();
+  }
 
 }

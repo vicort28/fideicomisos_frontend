@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAprobarPrestamoComponent } from '../modal-aprobar-prestamo/modal-aprobar-prestamo.component';
 import { ActualizarDatosComponent } from '../actualizar-datos/actualizar-datos.component';
+import { ActualizarSeguroVidaComponent } from '../actualizar-seguro-vida/actualizar-seguro-vida.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +21,6 @@ export class ModalComponent {
   prestamos: any ;
   seguros_vida: any 
   gastos_funerarios: any;
-  snackBar: any;
   gastosFunerarios: any;
 
 
@@ -28,7 +29,8 @@ export class ModalComponent {
     public dialogRef: MatDialogRef<ModalComponent>,
     private empleadoService: EmpleadoService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
     this.empleado = data.empleado;
     this.prestamos = data.prestamos;
@@ -78,7 +80,15 @@ export class ModalComponent {
   aprobarPrestamo(empleadoId: number): void {
     this.empleadoService.aprobarPrestamoPorEmpleado(empleadoId).subscribe(
       response => {
+        
         console.log('Préstamo aprobado correctamente:', response);
+        this.snackBar.open('Prestamo Aprobado', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass: 'snackbar-custom'
+        });
+        window.location.reload();
         this.prestamos = this.prestamos.map((prestamo: any) => {
           if (!prestamo.aprobado) {
             prestamo.aprobado = true;
@@ -111,6 +121,25 @@ export class ModalComponent {
       }
     });
   }
+
+  openModalActualizarSeguroVida(seguroVida: any): void {
+    const dialogRef = this.dialog.open(ActualizarSeguroVidaComponent, {
+      width: '600px',
+      data: { seguroVida }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Aquí puedes añadir lógica adicional si es necesario
+        console.log('Seguro de vida actualizado');
+      }
+    });
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
 
   
 

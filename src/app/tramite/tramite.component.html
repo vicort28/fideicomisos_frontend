@@ -35,7 +35,7 @@
   
 
     <button mat-raised-button color="accent" (click)="guardarFormulario1()">Guardar</button>
-    <button style="margin-top: 20px;" mat-raised-button color="primary" (click)="openModal()">Ver Historial de Préstamos</button>
+    <!-- <button style="margin-top: 20px;" mat-raised-button color="primary" (click)="openModal()">Ver Historial de Préstamos</button> -->
     
 
   </form>
@@ -74,7 +74,9 @@
   
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              
+              <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('telefono')">
+                Favor de seleccionar una fecha
+              </mat-error> 
             </mat-form-field>
           </div>
           <div class="form-row">
@@ -90,7 +92,7 @@
               <input matInput placeholder="Teléfono" formControlName="telefono">
               <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('telefono')">
                 Datos no validos
-               </mat-error> 
+              </mat-error> 
             </mat-form-field>
           </div>
           <div class="form-row">

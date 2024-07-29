@@ -19,9 +19,9 @@ export class TablaEmpleadoComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'nombre',
-    'n_empleado',
     'apellido_paterno',
     'apellido_materno',
+    'n_empleado',
     'telefono',
     'domicilio',
     'correo',
@@ -34,10 +34,10 @@ export class TablaEmpleadoComponent implements OnInit {
 
   columnas: { [key: string]: string } = {
     'id': 'No. registro',
-    'nombre': 'Nombre',
-    'n_empleado': 'Número de empleado',
+    'nombre': 'Nombre',   
     'apellido_paterno': 'Apellido Paterno',
     'apellido_materno': 'Apellido Materno',
+    'n_empleado': 'Número de empleado',
     'telefono': 'Teléfono',
     'domicilio': 'Domicilio',
     'correo': 'Correo',

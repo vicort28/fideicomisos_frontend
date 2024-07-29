@@ -43,11 +43,12 @@ import { ActualizarDatosComponent } from './actualizar-datos/actualizar-datos.co
 import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-modal.component';
 import { BuscarEmpleadoComponent } from './buscar-empleado/buscar-empleado.component';
 import { EmpleadoApiService } from './empleado-api.service';
-
-
+import { ActualizarSeguroVidaComponent } from './actualizar-seguro-vida/actualizar-seguro-vida.component';
+import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
+import { FormatDatePipe } from './format-date.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmacionModalComponent, BuscarEmpleadoComponent, ActualizarDatosComponent, PrestamosmodalComponent, ModalAprobarPrestamoComponent,EliminarRegistrosComponent,LoginComponent, BusquedaEmpleadoComponent, TablaEmpleadoComponent, TramiteComponent, NavegacionComponent, ListaRegistrosComponent, AprobacionPrestamoComponent, ModalComponent], 
+  declarations: [AppComponent,FormatDatePipe, DetalleEmpleadoComponent, ActualizarSeguroVidaComponent, ConfirmacionModalComponent, BuscarEmpleadoComponent, ActualizarDatosComponent, PrestamosmodalComponent, ModalAprobarPrestamoComponent,EliminarRegistrosComponent,LoginComponent, BusquedaEmpleadoComponent, TablaEmpleadoComponent, TramiteComponent, NavegacionComponent, ListaRegistrosComponent, AprobacionPrestamoComponent, ModalComponent], 
   imports: [ MatSnackBarModule,MatCardModule,MatListModule,MatDialogModule, MatNativeDateModule, MatDatepickerModule, MatIconModule, MatCheckboxModule, MatSelectModule,ReactiveFormsModule,ButtonModule, MatPaginatorModule,TableModule, NgxDatatableModule,MatInputModule, MatAutocompleteModule, MatFormFieldModule,MatTabsModule,AppRoutingModule,RouterModule,MatTableModule, MatButtonModule,BrowserAnimationsModule,BrowserModule, FormsModule, HttpClientModule,BrowserAnimationsModule],
   providers: [EmpleadoService, EmpleadoApiService],
   bootstrap: [AppComponent],

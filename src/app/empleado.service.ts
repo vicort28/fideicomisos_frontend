@@ -133,7 +133,9 @@ export class EmpleadoService {
     return this.http.post(url, {});
   }
 
-  
+  actualizarSeguroVida(seguroVidaId: number, seguroVidaData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}seguros-vida/${seguroVidaId}/actualizar/`, seguroVidaData);
+  }
 
 
   getPrestamos(empleadoId: number): Observable<any[]> {
@@ -145,6 +147,9 @@ export class EmpleadoService {
     return this.http.put(`${this.baseUrl}prestamos/${prestamoId}/actualizar/`, prestamoData);
   }
   
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(this.baseUrl, { username, password });
+  }
   
   
   

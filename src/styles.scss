@@ -84,6 +84,13 @@ a {
   }
 }
 
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: rgb(245, 245, 245);
+  --mdc-snackbar-container-color: rgb(18, 231, 28);
+  --mdc-snackbar-supporting-text-color: rgb(11, 11, 11);
+}
+
+
 
 // Estilos para tarjetas
 .card {

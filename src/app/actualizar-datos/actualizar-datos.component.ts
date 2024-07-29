@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadoService } from '../empleado.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-actualizar-datos',
@@ -17,7 +18,8 @@ export class ActualizarDatosComponent implements OnInit {
     public dialogRef: MatDialogRef<ActualizarDatosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private empleadoService: EmpleadoService
+    private empleadoService: EmpleadoService,
+    private snackBar: MatSnackBar,
   ) {
     this.updateForm = this.formBuilder.group({
       cantidad: [data.prestamo?.cantidad, Validators.required],
@@ -39,6 +41,14 @@ export class ActualizarDatosComponent implements OnInit {
           console.log('Préstamo actualizado:', response);
           this.dialogRef.close(true);
           window.location.reload();
+          this.snackBar.open('Registro Actualizado exitosamente', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+            panelClass: 'snackbar-custom'
+          });
+         
+
         },
         (error) => {
           console.error('Error al actualizar el préstamo:', error);

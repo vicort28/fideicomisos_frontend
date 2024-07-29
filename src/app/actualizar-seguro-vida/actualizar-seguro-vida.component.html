@@ -1,0 +1,47 @@
+<h2>Actualizar Seguro de Vida</h2>
+<form [formGroup]="updateForm" (ngSubmit)="actualizarSeguroVida()">
+  <ul class="form-list">
+    <li class="form-item">
+      <mat-form-field>
+        <mat-label>Fecha de Fallecimiento</mat-label>
+        <input matInput placeholder="Fecha de fallecimiento" formControlName="fecha_fallecimiento" [matDatepicker]="picker" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('telefono')">
+          Favor de seleccionar una fecha
+        </mat-error> 
+      </mat-form-field>
+    </li>
+    <li class="form-item">
+      <mat-form-field>
+        <mat-label>Domicilio</mat-label>
+        <input matInput formControlName="domicilio">
+        <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('domicilio')">
+          Execede limite de caracteres
+         </mat-error>  
+      </mat-form-field>
+    </li>
+    <li class="form-item">
+      <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+        <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('telefono')">
+          Datos no validos
+        </mat-error> 
+      </mat-form-field>
+    </li>
+    <li class="form-item">
+      <mat-form-field>
+        <mat-label>Beneficiario</mat-label>
+        <input matInput formControlName="beneficiario">
+        <mat-error style="font-size: 10px;" *ngIf="validacion_formulario_seguro_vida('beneficiario')">
+          Execede limite de caracteres         
+        </mat-error> 
+      </mat-form-field>
+    </li>
+  </ul>
+  <div class="button-group">
+    <button mat-raised-button color="primary" type="submit">Actualizar</button>
+    <button mat-raised-button type="button" (click)="close()">Cancelar</button>
+  </div>
+</form>

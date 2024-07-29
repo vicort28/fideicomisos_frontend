@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Detalles del Empleado</h2>
+<mat-dialog-content>
+  <div class="employee-details">
+    <div class="detail-row">
+      <div class="detail-item">
+        <strong>Nombre:</strong>
+        <div class="value-box">{{ data.empleado.nombres || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Apellido Paterno:</strong>
+        <div class="value-box">{{ data.empleado.apellidoPaterno || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Apellido Materno:</strong>
+        <div class="value-box">{{ data.empleado.apellidoMaterno || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>RFC:</strong>
+        <div class="value-box">{{ data.empleado.rfc || 'No hay registro' }}</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <strong>CURP:</strong>
+        <div class="value-box">{{ data.empleado.curp || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Numero de Empleado:</strong>
+        <div class="value-box">{{ data.empleado.numeroEmpleado || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Telefono 1:</strong>
+        <div class="value-box">{{ data.empleado.telefono1 || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Telefono 2:</strong>
+        <div class="value-box">{{ data.empleado.telefono2 || 'No hay registro' }}</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <strong>Dirección:</strong>
+        <div class="value-box">{{ data.empleado.direccion || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Dirección General:</strong>
+        <div class="value-box">{{ data.empleado.direccionGeneral || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Correo:</strong>
+        <div class="value-box">{{ data.empleado.correo || 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Domicilio:</strong>
+        <div class="value-box">{{ data.empleado.domicilio || 'No hay registro' }}</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-item">
+        <strong>Fecha Ingreso:</strong>
+        <div class="value-box">{{ data.empleado.fechaIngreso ? (data.empleado.fechaIngreso | formatDate) : 'No hay registro' }}</div>
+      </div>
+      <div class="detail-item">
+        <strong>Fecha Nacimiento:</strong>
+        <div class="value-box">{{ data.empleado.fechaNacimiento ? (data.empleado.fechaNacimiento | formatDate) : 'No hay registro' }}</div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>
